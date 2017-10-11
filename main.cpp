@@ -1,5 +1,3 @@
-// ConsoleApplication10.cpp: определяет точку входа для консольного приложения.
-//
 #include "stdafx.h"
 #include<sstream>
 #include<iostream>
@@ -19,67 +17,74 @@ int main()
 	stream >> sum;
 	while (stream >> op)
 	{
-		stream >> n;
-		if (op == '+' || op == '-')
+		if (stream >> n)
 		{
-			if (k > 0 )
+			if (op == '+' || op == '-')
 			{
-				sum += 1.*a1;
-				j++;
-			}
-			if (op == '+')
-			{
-				a1 = n;
-				k++;
-			}
-			if (op == '-')
-			{
-				a1 = -1 * n;
-				k++;
-			}
-		}
-		if (op == '*' || op == '/')
-		{
-			if (k == 0 )
-			{
-				if(op=='*') sum *=1.* n;
-				if (op == '/')
+				if (k > 0)
 				{
-					if(n!=0) sum /= 1.*n;
-					else
+					sum += 1.*a1;
+					j++;
+				}
+				if (op == '+')
+				{
+					a1 = n;
+					k++;
+				}
+				if (op == '-')
+				{
+					a1 = -1 * n;
+					k++;
+				}
+			}
+			if (op == '*' || op == '/')
+			{
+				if (k == 0)
+				{
+					if (op == '*') sum *= 1.* n;
+					if (op == '/')
 					{
-						cout << "fail" << endl;
-						fail = true;
+						if (n != 0) sum /= 1.*n;
+						else
+						{
+							cout << "fail" << endl;
+							fail = true;
+						}
+					}
+					a2 = sum;
+				}
+				else
+				{
+					if (op == '*')
+					{
+						a2 += 1.* a1*n;
+					}
+					if (op == '/')
+					{
+						if (n == 0)
+						{
+							cout << "fail";
+							fail = true;
+						}
+						else
+						{
+							a2 += 1.*a1 / n;
+						}
 					}
 				}
-			a2 = sum;
+				a1 = a2;
+				a2 = 0;
 			}
-			else
+			if (op != '+' && op != '-' && op != '*' && op != '/')
 			{
-				if (op == '*')
-				{
-					a2 += 1.* a1*n;
-				}
-				if (op == '/')
-				{
-					if (n == 0)
-					{
-						cout << "fail";
-						fail = true;
-					}		
-					else
-					{
-						a2 += 1.*a1 / n;
-					}
-				}
+				fail = true;
+				cout << "fail" << endl;
 			}
-			a1 = a2;
-			a2 = 0;
 		}
-		if (op != '+' && op != '-' && op != '*' && op != '/')
+		else
 		{
-			fail = true;
 			cout << "fail" << endl;
+			fail = true;
 		}
 	}
 	if (k > j) sum += a1;
